@@ -222,8 +222,8 @@ public class parsing {
         testKantenliste.printKantenListe();
         
         InzidenzMatrix test = new InzidenzMatrix();
-        test.convertKantenlisteToInzidenzMatrix(testKantenliste);
-
+        int[][] newIncidenceArray = test.convertKantenlisteToInzidenzMatrix(testKantenliste);
+        System.out.println(newIncidenceArray.toString());
 
 
         //System.out.println("COUNT: "+readGraphData.getNodeCount());
