@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+
+public class InzidenzMatrix {
+    public int[][] inzMatrix;
+
+    public void InzidenzeMatrix() {
+
+    }
+
+    public void convertKantenlisteToInzidenzMatrix(KantenListe kListe)
+    {
+        int nodeCount = kListe.nodeCount;
+        int edgeCount = 0;
+
+        for (int i = 0; i < kListe.Kanten.size(); i++) {
+            edgeCount += kListe.Kanten.get(i).size() / 2; 
+        }
+
+        inzMatrix = new int[nodeCount][edgeCount];
+
+        for (int i = 1; i < nodeCount+1; i++) {
+            System.out.print(i+" ");
+
+            for (int j = 0; j < edgeCount; j++) {
+                ArrayList<Integer> nodeKanten = kListe.Kanten.get(j);
+                Boolean test = false;
+
+                if (nodeKanten.contains(i)) {
+                    System.out.print("1 ");
+                }
+                else {
+                    System.out.print("0 ");
+                }
+            }
+            System.out.print("\n");
+        }
+
+    }
+}
