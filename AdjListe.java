@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class AdjListe {
     public ArrayList<ArrayList<Integer>> adjaListe;
@@ -17,6 +18,41 @@ public class AdjListe {
                 System.out.print(buf.get(j) + " ");
             }
             System.out.println();
+        }
+    }
+
+    public void writeDOT()
+    {
+        try {
+            FileWriter myWriter = new FileWriter("./GraphVizData/DOT-AdjaList.dot");
+            myWriter.write("graph ethane {\n    edge [dir=none, color=black] \n");
+
+            // ArrayList um doppelte Einträge zu vermeiden
+            ArrayList<String> test = new ArrayList();
+            for (int i = 0; i < adjaListe.size(); i++) {
+                ArrayList<Integer> buf = adjaListe.get(i);
+                for (int j = 0; j < buf.size(); j++) {
+                    String toWrite = "    "+(i+1)+" -- "+buf.get(j)+";\n";
+                    String invToWrite = "    "+buf.get(j)+" -- "+(i+1)+";\n";
+
+                    // Doppelte Einträge zu vermeiden
+                    if (!test.contains(invToWrite)) {
+                        test.add(toWrite);
+                    }
+                }
+            }
+
+            for (String string : test) {
+                myWriter.write(string);
+            }
+
+            myWriter.write("}");
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } 
+        catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 
