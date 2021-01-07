@@ -28,6 +28,24 @@ public class Adjazenzmatrix {
         this.weighted = weight;
     }
 
+    public void printAdjMatrix() {
+        // for (int[] x : adjaMatrix)
+        // {
+        //     for (int y : x)
+        //     {
+        //         System.out.print(y + " ");
+        //     }
+        //     System.out.println();
+        // }
+
+        for (int i = 1; i < adjaMatrix.length; i++) {
+            for (int j = 1; j < adjaMatrix.length; j++) {
+                System.out.print(adjaMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
     public int[][] convKantenlisteToAdjazenzmatrix(KantenListe kListe)
     {
         int nodeCount = kListe.nodeCount;

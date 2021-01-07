@@ -227,6 +227,7 @@ public class parsing {
 
         Adjazenzmatrix adjaMatrix = new Adjazenzmatrix(testKantenliste.nodeCount);
         adjaMatrix.convKantenlisteToAdjazenzmatrix(testKantenliste);
+        adjaMatrix.printAdjMatrix();
 
         //System.out.println("COUNT: "+readGraphData.getNodeCount());
 
