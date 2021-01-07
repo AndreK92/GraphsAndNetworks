@@ -213,6 +213,7 @@ public class parsing {
         // ReadFile to Kantenliste
         KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
         testKantenliste.printKantenListe();
+        testKantenliste.writeDOT();
         
         //InzidenzMatrix test = new InzidenzMatrix();
         //int[][] newIncidenceArray = test.convertKantenlisteToInzidenzMatrix(testKantenliste);
