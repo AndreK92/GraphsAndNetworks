@@ -31,8 +31,6 @@ public class Adjazenzmatrix {
     public int[][] convKantenlisteToAdjazenzmatrix(KantenListe kListe)
     {
         int nodeCount = kListe.nodeCount;
-        int edgeCount = kListe.nodeCount * kListe.nodeCount;
-
 
         for (int i = 1; i <= nodeCount; i++) {
             for (int j = 1; j <= nodeCount; j++) {
@@ -43,25 +41,12 @@ public class Adjazenzmatrix {
 
                 for (ArrayList<Integer> js : kListe.Kanten) {
                     if (js.contains(i)&&js.contains(j)) {
-                        System.out.println("CHECK ArrayList: "+i+" Contains: "+(i+1)+", "+j+"\n");
+                        //System.out.println("CHECK ArrayList: "+i+" Contains: "+(i+1)+", "+j+"\n");
                         adjaMatrix[i][j] = 1;
                     }
                 }
-
             }
         }
-        //System.out.println(Arrays.deepToString(array));
-
-        for (int i = 0; i < nodeCount; i++) {
-            for (int j = i; j < nodeCount+1; j++) {
-                ArrayList<Integer> nodeKanten = kListe.Kanten.get(j);
-                if (nodeKanten.contains(i+1)&&nodeKanten.contains(j)) {
-                    System.out.println("CHECK ArrayList: "+i+" Contains: "+(i+1)+", "+j);
-                    adjaMatrix[i][j] = 1;
-                }
-            }
-        }
-        System.out.println("");
 
         return adjaMatrix;
     }
