@@ -221,10 +221,12 @@ public class parsing {
         KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
         testKantenliste.printKantenListe();
         
-        InzidenzMatrix test = new InzidenzMatrix();
-        int[][] newIncidenceArray = test.convertKantenlisteToInzidenzMatrix(testKantenliste);
-        System.out.println(newIncidenceArray.toString());
+        //InzidenzMatrix test = new InzidenzMatrix();
+        //int[][] newIncidenceArray = test.convertKantenlisteToInzidenzMatrix(testKantenliste);
+        //System.out.println(newIncidenceArray.toString());
 
+        Adjazenzmatrix adjaMatrix = new Adjazenzmatrix(testKantenliste.nodeCount);
+        adjaMatrix.convKantenlisteToAdjazenzmatrix(testKantenliste);
 
         //System.out.println("COUNT: "+readGraphData.getNodeCount());
 
