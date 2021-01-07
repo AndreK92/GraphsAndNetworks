@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Adjazenzmatrix {
     public int[][] adjaMatrix;
@@ -43,6 +44,34 @@ public class Adjazenzmatrix {
                 System.out.print(adjaMatrix[i][j] + " ");
             }
             System.out.println();
+        }
+    }
+
+    public void writeDOT()
+    {
+        try {
+            FileWriter myWriter = new FileWriter("./GraphVizData/DOT-AdjaMatrix.dot");
+            myWriter.write("graph ethane {\n    edge [dir=none, color=black] \n");
+
+            // j = i  weil matrix sich quasi spiegelt und so doppelte einträge vermieden werden
+            for (int i = 1; i < adjaMatrix.length; i++) {
+                for (int j = i; j < adjaMatrix.length; j++) {
+                    System.out.print(adjaMatrix[i][j] + " ");
+
+                    if (adjaMatrix[i][j] == 1) {
+                        myWriter.write("    "+i+" -- "+j+";\n");
+                    }
+                }
+                System.out.println();
+            }
+
+            myWriter.write("}");
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } 
+        catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 

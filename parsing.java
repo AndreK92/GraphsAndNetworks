@@ -222,6 +222,7 @@ public class parsing {
         Adjazenzmatrix adjaMatrix = new Adjazenzmatrix(testKantenliste.nodeCount);
         adjaMatrix.convKantenlisteToAdjazenzmatrix(testKantenliste);
         adjaMatrix.printAdjMatrix();
+        adjaMatrix.writeDOT();
 
         AdjListe adjListe = new AdjListe(testKantenliste.nodeCount);
         adjListe.convKantenlisteToAdjazenzListe(testKantenliste);
