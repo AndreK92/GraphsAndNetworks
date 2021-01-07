@@ -210,13 +210,6 @@ public class parsing {
 
     public static void main(String[] args) {
 
-        // Reading graph data from file
-        //graph readGraphData = readFile("./Beispielgraphen-20201120/k5.txt");
-        //graph readGraphData = readFileGraph("./Beispielgraphen-20201120/bellmannford.txt");
-        // for (Kanten k : readGraphData.graphKanten) {
-        //     System.out.println("STARTNODE: "+k.startNode+" NEXT: "+ k.endNode + " WEIGHT: "+ k.weight);
-        // }
-
         // ReadFile to Kantenliste
         KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
         testKantenliste.printKantenListe();
@@ -228,13 +221,6 @@ public class parsing {
         Adjazenzmatrix adjaMatrix = new Adjazenzmatrix(testKantenliste.nodeCount);
         adjaMatrix.convKantenlisteToAdjazenzmatrix(testKantenliste);
         adjaMatrix.printAdjMatrix();
-
-        //System.out.println("COUNT: "+readGraphData.getNodeCount());
-
-        //System.out.println(readGraphData.graphData[0]);
-        //System.out.println(readGraphData.showData());
-        //System.out.println(readGraphData.showEdgeList());
-        //System.out.println(readGraphData.showIncidenceMatrix());
 
     }
 }
