@@ -31,6 +31,7 @@ public class AdjListe {
             FileWriter myWriter = new FileWriter("./GraphVizData/DOT-AdjaList.dot");
             myWriter.write("graph ethane {\n    edge [dir=none, color=black] \n");
 
+            Iterator<Integer> iter = null;
             // ArrayList um doppelte Einträge zu vermeiden
             ArrayList<String> test = new ArrayList();
             for (int i = 0; i < adjaListe.size(); i++) {
@@ -41,6 +42,7 @@ public class AdjListe {
                     
                     // Check gewichtet
                     if (isWeighted) {
+                        iter = edgeWeights.iterator(); 
                         int weight = edgeWeights.get(i);
                         toWrite = "    "+(i+1)+" -- "+buf.get(j)+"";
                         invToWrite = "    "+buf.get(j)+" -- "+(i+1)+"";
@@ -62,10 +64,10 @@ public class AdjListe {
                 }
             }
 
-            
-            Iterator<Integer> iter = edgeWeights.iterator(); 
             for (String string : test) {
-                string += "[label=\""+iter.next()+"\"];\n";
+                if (isWeighted) {
+                    string += "[label=\""+iter.next()+"\"];\n";
+                }
                 myWriter.write(string);
             }
 
