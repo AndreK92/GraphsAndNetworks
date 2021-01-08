@@ -88,8 +88,14 @@ public class Adjazenzmatrix {
         }
     }
 
-    public int[][] convKantenlisteToAdjazenzmatrix(KantenListe kListe)
+    public void convKantenlisteToAdjazenzmatrix(KantenListe kListe)
     {
+        if (kListe.isDirected) {
+            isDirected = true;
+            convKListeToAdjazMatrix(kListe);
+            return;
+        }
+
         int nodeCount = kListe.nodeCount;
 
         // Check ob Gewichteter Graph
@@ -125,6 +131,69 @@ public class Adjazenzmatrix {
         else{
             for (int i = 1; i <= nodeCount; i++) {
                 for (int j = 1; j <= nodeCount; j++) {
+
+                    // Wenn Knoten gleich, prüfe auf Anzahl, wenn größer 1, dann 1 in der Matrix
+                    if (i==j) {
+                        for (ArrayList<Integer> js : kListe.Kanten) {
+                            if (Collections.frequency(js, i) > 1) {
+                                adjaMatrix[i][j] = 1;
+                            }
+                        }
+                        continue;
+                    }
+
+                    // Prüfe ob ein entsprechendes paar vorhanden ist, dann 1 in der Matrix
+                    for (ArrayList<Integer> js : kListe.Kanten) {
+                        if (js.contains(i) && js.contains(j)) {
+                            adjaMatrix[i][j] = 1;
+                        }
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    // Konvertiert DIREKTEN Graph Kantenliste in AdjaMatrix
+    // j = i ist der unterschied zur anderen FUnktion, Matrix wird quasi in der hälfte geteilt
+    public int[][] convKListeToAdjazMatrix(KantenListe kListe)
+    {
+        System.out.println("Covert to DIRECTED Matrix");
+        int nodeCount = kListe.nodeCount;
+
+        // Check ob Gewichteter Graph
+        if (kListe.isWeighted) {
+            // Lese Weight und speichern
+            edgeWeights = kListe.edgeWeights;
+            isWeighted = true;
+
+            for (int i = 1; i <= nodeCount; i++) {
+                for (int j = i; j <= nodeCount; j++) {
+    
+                    // Wenn Knoten gleich, prüfe auf Anzahl, wenn größer 1, dann 1 in der Matrix
+                    if (i==j) {
+                        for (ArrayList<Integer> js : kListe.Kanten) {
+                            if (js.get(0) == i && js.get(2) == i) {
+                                adjaMatrix[i][j] = 1;
+                            }
+                        }
+                        continue;
+                    }
+    
+                    // Prüfe ob ein entsprechendes paar vorhanden ist, dann 1 in der Matrix
+                    for (ArrayList<Integer> js : kListe.Kanten) {
+                        if ((js.get(0) == i && js.get(2) == j) ||
+                            (js.get(0) == j && js.get(2) == i)) {
+                            adjaMatrix[i][j] = 1;
+                        }
+                    }
+                }
+            }
+            System.out.println();
+        }
+        else{
+            for (int i = 1; i <= nodeCount; i++) {
+                for (int j = i; j <= nodeCount; j++) {
 
                     // Wenn Knoten gleich, prüfe auf Anzahl, wenn größer 1, dann 1 in der Matrix
                     if (i==j) {

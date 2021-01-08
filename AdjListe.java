@@ -94,6 +94,12 @@ public class AdjListe {
 
     public void convKantenlisteToAdjazenzListe(KantenListe kListe)
     {
+        if (kListe.isDirected) {
+            isDirected = true;
+            convKlisteToAdjaListeDir(kListe);
+            return;
+        }
+
         int nodeCount = kListe.nodeCount;
 
         // Check ob Gewichteter Graph
@@ -154,8 +160,13 @@ public class AdjListe {
         }
     }
 
+    /*Konvertiert DIREKTEN Graph Kantenliste in AdjaListe
+    js.get(0) == i && js.get(1) == j ist der unterschied zur anderen Funktion, 
+    so werden nur ausgehende Edges in die Liste aufgenommen
+    */
     public void convKlisteToAdjaListeDir(KantenListe kListe)
     {
+        System.out.println("Covert to DIRECTED List");
         int nodeCount = kListe.nodeCount;
 
         // Check ob Gewichteter Graph
@@ -179,8 +190,7 @@ public class AdjListe {
 
                     // Prüfe ob ein entsprechendes paar vorhanden ist, dann 1 in der Matrix
                     for (ArrayList<Integer> js : kListe.Kanten) {
-                        if ((js.get(0) == i && js.get(2) == j) ||
-                            (js.get(0) == j && js.get(2) == i)) {
+                        if ((js.get(0) == i && js.get(2) == j)) {
                             buf.add(j);
                         }
                     }
@@ -213,9 +223,5 @@ public class AdjListe {
                 adjaListe.add(buf);
             }
         }
-
-
-        //System.out.println(""+adjaListe.get(0).get(0));
-        //System.out.println();
     }
 }
