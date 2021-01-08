@@ -210,10 +210,11 @@ public class parsing {
     public static void main(String[] args) {
 
         // ReadFile to Kantenliste
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
+        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/bellmannford.txt");
-        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
         testKantenliste.printKantenListe();
+        testKantenliste.isDirected = true;
         testKantenliste.writeDOT();
         
         //InzidenzMatrix test = new InzidenzMatrix();
@@ -221,11 +222,13 @@ public class parsing {
         //System.out.println(newIncidenceArray.toString());
 
         Adjazenzmatrix adjaMatrix = new Adjazenzmatrix(testKantenliste.nodeCount);
+        adjaMatrix.isDirected = true;
         adjaMatrix.convKantenlisteToAdjazenzmatrix(testKantenliste);
         adjaMatrix.printAdjMatrix();
         adjaMatrix.writeDOT();
 
         AdjListe adjListe = new AdjListe(testKantenliste.nodeCount);
+        adjListe.isDirected = true;
         adjListe.convKantenlisteToAdjazenzListe(testKantenliste);
         adjListe.printAdjListe();
         adjListe.writeDOT();

@@ -7,6 +7,8 @@ public class AdjListe {
     public ArrayList<Integer> edgeWeights;
     Boolean isWeighted = false;
 
+    Boolean isDirected = false;
+
     public AdjListe(int nodeCount)
     {
         this.adjaListe = new ArrayList<ArrayList<Integer>>();
@@ -29,7 +31,16 @@ public class AdjListe {
     {
         try {
             FileWriter myWriter = new FileWriter("./GraphVizData/DOT-AdjaList.dot");
-            myWriter.write("graph ethane {\n    edge [dir=none, color=black] \n");
+
+            String dir = "";
+            if (isDirected) {
+                myWriter.write("digraph ethane {\n");
+                dir = " -> ";
+            }
+            else{
+                myWriter.write("graph ethane {\n");
+                dir = " -- ";
+            }
 
             Iterator<Integer> iter = null;
             // ArrayList um doppelte Einträge zu vermeiden
@@ -44,8 +55,8 @@ public class AdjListe {
                     if (isWeighted) {
                         iter = edgeWeights.iterator(); 
                         int weight = edgeWeights.get(i);
-                        toWrite = "    "+(i+1)+" -- "+buf.get(j)+"";
-                        invToWrite = "    "+buf.get(j)+" -- "+(i+1)+"";
+                        toWrite = "    "+(i+1)+dir+buf.get(j)+"";
+                        invToWrite = "    "+buf.get(j)+dir+(i+1)+"";
 
                         // Doppelte Einträge zu vermeiden
                         if (!test.contains(invToWrite)) {
@@ -53,8 +64,8 @@ public class AdjListe {
                         }
                     }
                     else{
-                        toWrite = "    "+(i+1)+" -- "+buf.get(j)+";\n";
-                        invToWrite = "    "+buf.get(j)+" -- "+(i+1)+";\n";
+                        toWrite = "    "+(i+1)+dir+buf.get(j)+";\n";
+                        invToWrite = "    "+buf.get(j)+dir+(i+1)+";\n";
 
                         // Doppelte Einträge zu vermeiden
                         if (!test.contains(invToWrite)) {

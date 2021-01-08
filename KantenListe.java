@@ -8,6 +8,8 @@ public class KantenListe {
     public ArrayList<Integer> edgeWeights;
     Boolean isWeighted = false;
 
+    Boolean isDirected = false;
+
     public KantenListe(int nC)
     {
         Kanten = new ArrayList<ArrayList<Integer>>();
@@ -27,15 +29,24 @@ public class KantenListe {
     {
         try {
             FileWriter myWriter = new FileWriter("./GraphVizData/DOT-KListe.dot");
-            myWriter.write("graph ethane {\n    edge [dir=none, color=black] \n");
+            
+            String dir = "";
+            if (isDirected) {
+                myWriter.write("digraph ethane {\n");
+                dir = " -> ";
+            }
+            else{
+                myWriter.write("graph ethane {\n");
+                dir = " -- ";
+            }
 
             for (int i = 0; i < Kanten.size(); i++) {
                 ArrayList<Integer> is = Kanten.get(i);
                 if (isWeighted) {
-                    myWriter.write("    "+is.get(0)+" -- "+is.get(2)+"[label=\""+edgeWeights.get(i)+"\"];\n");
+                    myWriter.write("    "+is.get(0)+dir+is.get(2)+"[label=\""+edgeWeights.get(i)+"\"];\n");
                 }
                 else{
-                    myWriter.write("    "+is.get(0)+" -- "+is.get(1)+";\n");
+                    myWriter.write("    "+is.get(0)+dir+is.get(1)+";\n");
                 }
             }
 

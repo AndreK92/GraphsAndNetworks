@@ -7,6 +7,8 @@ public class Adjazenzmatrix {
     public ArrayList<Integer> edgeWeights;
     Boolean isWeighted = false;
 
+    Boolean isDirected = false;
+
     public Adjazenzmatrix(int nodeCount)
     {
         this.edgeWeights = new ArrayList<>();
@@ -47,7 +49,16 @@ public class Adjazenzmatrix {
     {
         try {
             FileWriter myWriter = new FileWriter("./GraphVizData/DOT-AdjaMatrix.dot");
-            myWriter.write("graph ethane {\n    edge [dir=none, color=black] \n");
+
+            String dir = "";
+            if (isDirected) {
+                myWriter.write("digraph ethane {\n");
+                dir = " -> ";
+            }
+            else{
+                myWriter.write("graph ethane {\n");
+                dir = " -- ";
+            }
 
             Iterator<Integer> iter = edgeWeights.iterator(); 
             // j = i  weil matrix sich quasi spiegelt und so doppelte einträge vermieden werden
@@ -57,10 +68,10 @@ public class Adjazenzmatrix {
 
                     if (adjaMatrix[i][j] == 1) {
                         if (isWeighted) {
-                            myWriter.write("    "+i+" -- "+j+"[label=\""+iter.next()+"\"];\n");
+                            myWriter.write("    "+i+dir+j+"[label=\""+iter.next()+"\"];\n");
                         }
                         else{
-                            myWriter.write("    "+i+" -- "+j+";\n");
+                            myWriter.write("    "+i+dir+j+";\n");
                         }
                     }
                 }
