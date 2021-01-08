@@ -210,10 +210,10 @@ public class parsing {
     public static void main(String[] args) {
 
         // ReadFile to Kantenliste
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
+        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/bellmannford.txt");
-        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/petersen.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/petersen.txt");
 
         testKantenliste.isDirected = true;
         testKantenliste.printKantenListe();
@@ -232,5 +232,9 @@ public class parsing {
         adjListe.convKantenlisteToAdjazenzListe(testKantenliste);
         adjListe.printAdjListe();
         adjListe.writeDOT();
+
+        // Topsort
+        TopSort tSort = new TopSort(testKantenliste.Kanten);
+        tSort.topologicalSort();
     }
 }
