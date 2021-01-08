@@ -211,8 +211,9 @@ public class parsing {
 
         // ReadFile to Kantenliste
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
-        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/bellmannford.txt");
+        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/petersen.txt");
 
         testKantenliste.isDirected = true;
         testKantenliste.printKantenListe();

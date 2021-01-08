@@ -64,8 +64,6 @@ public class Adjazenzmatrix {
             // j = i  weil matrix sich quasi spiegelt und so doppelte einträge vermieden werden
             for (int i = 1; i < adjaMatrix.length; i++) {
                 for (int j = i; j < adjaMatrix.length; j++) {
-                    System.out.print(adjaMatrix[i][j] + " ");
-
                     if (adjaMatrix[i][j] == 1) {
                         if (isWeighted) {
                             myWriter.write("    "+i+dir+j+"[label=\""+iter.next()+"\"];\n");
@@ -75,7 +73,6 @@ public class Adjazenzmatrix {
                         }
                     }
                 }
-                System.out.println();
             }
 
             myWriter.write("}");
