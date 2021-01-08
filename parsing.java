@@ -234,7 +234,7 @@ public class parsing {
         adjListe.writeDOT();
 
         // Topsort
-        TopSort tSort = new TopSort(testKantenliste.Kanten);
+        TopSort tSort = new TopSort(adjListe.adjaListe);
         tSort.topologicalSort();
     }
 }

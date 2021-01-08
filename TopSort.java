@@ -8,7 +8,7 @@ public class TopSort {
     public TopSort(ArrayList<ArrayList<Integer>> Graph)
     {
         this.Graph = Graph;
-        this.vertCount = Graph.size();
+        this.vertCount = Graph.size()+1;
     }
 
     // A recursive function used by topologicalSort 
@@ -20,7 +20,7 @@ public class TopSort {
   
         // Recur for all the vertices adjacent 
         // to thisvertex 
-        Iterator<Integer> it = Graph.get(v).iterator(); 
+        Iterator<Integer> it = Graph.get(v-1).iterator(); 
         while (it.hasNext()) { 
             i = it.next(); 
             if (!visited[i]) 
@@ -47,7 +47,7 @@ public class TopSort {
         // function to store 
         // Topological Sort starting 
         // from all vertices one by one 
-        for (int i = 0; i < vertCount; i++) 
+        for (int i = 1; i < vertCount; i++) 
             if (visited[i] == false) 
                 topologicalSortUtil(i, visited, stack); 
   
