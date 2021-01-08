@@ -168,7 +168,6 @@ public class parsing {
         ArrayList<Integer> nodeCount = new ArrayList<>();
         ArrayList<String>[] readData;
         KantenListe ret = null;
-        Boolean weighted = false;
         //node newNode;
 
         try {
@@ -194,7 +193,7 @@ public class parsing {
                 {
                     if (edge.size() == 3) {
                         System.out.println("Weighted");
-                        weighted = true;
+                        ret.isWeighted = true;
                     }
                     ret.addKante(edge);
                 }
@@ -211,7 +210,9 @@ public class parsing {
     public static void main(String[] args) {
 
         // ReadFile to Kantenliste
-        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/bellmannford.txt");
+        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
         testKantenliste.printKantenListe();
         testKantenliste.writeDOT();
         

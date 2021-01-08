@@ -5,14 +5,21 @@ public class KantenListe {
     ArrayList<ArrayList<Integer>> Kanten;
     int nodeCount = 0;
 
+    public ArrayList<Integer> edgeWeights;
+    Boolean isWeighted = false;
+
     public KantenListe(int nC)
     {
         Kanten = new ArrayList<ArrayList<Integer>>();
+        edgeWeights = new ArrayList<>();
         nodeCount = nC;
     }
 
     public void addKante(ArrayList<Integer> k)
     {
+        if (isWeighted) {
+            edgeWeights.add(k.get(1));
+        }
         Kanten.add(k);
     }
 
@@ -22,8 +29,14 @@ public class KantenListe {
             FileWriter myWriter = new FileWriter("./GraphVizData/DOT-KListe.dot");
             myWriter.write("graph ethane {\n    edge [dir=none, color=black] \n");
 
-            for (ArrayList<Integer> is : Kanten) {
-                myWriter.write("    "+is.get(0)+" -- "+is.get(1)+";\n");
+            for (int i = 0; i < Kanten.size(); i++) {
+                ArrayList<Integer> is = Kanten.get(i);
+                if (isWeighted) {
+                    myWriter.write("    "+is.get(0)+" -- "+is.get(2)+"[label=\""+edgeWeights.get(i)+"\"];\n");
+                }
+                else{
+                    myWriter.write("    "+is.get(0)+" -- "+is.get(1)+";\n");
+                }
             }
 
             myWriter.write("}");
