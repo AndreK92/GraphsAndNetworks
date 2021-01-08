@@ -229,7 +229,8 @@ public class parsing {
 
         AdjListe adjListe = new AdjListe(testKantenliste.nodeCount);
         adjListe.isDirected = true;
-        adjListe.convKantenlisteToAdjazenzListe(testKantenliste);
+        //adjListe.convKantenlisteToAdjazenzListe(testKantenliste);
+        adjListe.convKlisteToAdjaListeDir(testKantenliste);
         adjListe.printAdjListe();
         adjListe.writeDOT();
     }

@@ -152,6 +152,67 @@ public class AdjListe {
                 adjaListe.add(buf);
             }
         }
+    }
+
+    public void convKlisteToAdjaListeDir(KantenListe kListe)
+    {
+        int nodeCount = kListe.nodeCount;
+
+        // Check ob Gewichteter Graph
+        if (kListe.isWeighted) {
+            // Lese Weight und speichern
+            edgeWeights = kListe.edgeWeights;
+            isWeighted = true;
+
+            for (int i = 1; i <= nodeCount; i++) {
+                ArrayList<Integer> buf = new ArrayList<>();
+                for (int j = 1; j <= nodeCount; j++) {
+                    // Wenn Knoten gleich, prüfe auf Anzahl, wenn größer 1, dann 1 in der Matrix
+                    if (i==j) {
+                        for (ArrayList<Integer> js : kListe.Kanten) {
+                            if (js.get(0) == i && js.get(2) == i) {
+                                buf.add(j);
+                            }
+                        }
+                        continue;
+                    }
+
+                    // Prüfe ob ein entsprechendes paar vorhanden ist, dann 1 in der Matrix
+                    for (ArrayList<Integer> js : kListe.Kanten) {
+                        if ((js.get(0) == i && js.get(2) == j) ||
+                            (js.get(0) == j && js.get(2) == i)) {
+                            buf.add(j);
+                        }
+                    }
+                }
+                adjaListe.add(buf);
+            }
+        }
+
+        else
+        {
+            for (int i = 1; i <= nodeCount; i++) {
+                ArrayList<Integer> buf = new ArrayList<>();
+                for (int j = 1; j <= nodeCount; j++) {
+    
+                    if (i==j) {
+                        for (ArrayList<Integer> js : kListe.Kanten) {
+                            if (Collections.frequency(js, i) > 1) {
+                                buf.add(j);
+                            }
+                        }
+                        continue;
+                    }
+    
+                    for (ArrayList<Integer> js : kListe.Kanten) {
+                        if (js.get(0) == i && js.get(1) == j) {
+                            buf.add(j);
+                        }
+                    }
+                }
+                adjaListe.add(buf);
+            }
+        }
 
 
         //System.out.println(""+adjaListe.get(0).get(0));
