@@ -65,11 +65,13 @@ public class KantenListe {
 
     public void printKantenListe()
     {
+        System.out.println("PRINT: KLISTE");
         for (ArrayList<Integer> is : Kanten) {
             for (int i = 0; i < is.size(); i++) {
                 System.out.print(" "+is.get(i));
             }
             System.out.print("\n");
         }
+        System.out.print("\n");
     }
 }

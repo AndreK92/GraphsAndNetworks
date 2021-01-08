@@ -10,8 +10,9 @@ public class AdjListe {
         this.adjaListe = new ArrayList<ArrayList<Integer>>();
     }
 
-    public void printAdjListe() {
-
+    public void printAdjListe() 
+    {
+        System.out.println("PRINT: AdjaListe");
         for (int i = 0; i < adjaListe.size(); i++) {
             ArrayList<Integer> buf = adjaListe.get(i);
             for (int j = 0; j < buf.size(); j++) {
@@ -19,6 +20,7 @@ public class AdjListe {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     public void writeDOT()
