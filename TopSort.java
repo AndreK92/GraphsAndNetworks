@@ -21,7 +21,7 @@ public class TopSort {
         // Den aktuellen Knoten als überprüft markieren
         nodeVisited[v] = true; 
         // Aktueller Knoten
-        Integer i; 
+        int i; 
 
         // Rekursion für alle Knoten Adjazent zu aktuellem Knoten
         Iterator<Integer> it = adjaListe.get(v-1).iterator(); 
@@ -32,7 +32,7 @@ public class TopSort {
         } 
 
         // Füge aktuellen Knoten dem Stack hinzu
-        stack.push(new Integer(v)); 
+        stack.push(v); 
     } 
   
     // TopSort Funktion, die topSortU() benutzt
