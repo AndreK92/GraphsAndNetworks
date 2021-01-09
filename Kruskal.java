@@ -7,7 +7,16 @@ import java.io.*;
 // 3. Repeat step#2 until there are (V-1) edges in the spanning tree.
 public class Kruskal {
 
-    
+    ArrayList<ArrayList<Integer>> kListe;
+    int nodeCount = 0;
+    int edgeCount = 0;
+
+    public Kruskal(KantenListe kListe)
+    {
+        this.kListe = kListe.Kanten;
+        this.nodeCount = kListe.nodeCount;
+        this.edgeCount = kListe.Kanten.size();
+    }
 
     // A class to represent a graph edge
     class Edge implements Comparable<Edge> 
@@ -66,7 +75,6 @@ public class Kruskal {
         }
     }
 
-    int V, E; // V-> no. of vertices & E->no.of edges
     Edge edge[]; // collection of all edges
 
     // The main function to construct MST using Kruskal's
@@ -74,14 +82,14 @@ public class Kruskal {
     void KruskalMST()
     {
         // Tnis will store the resultant MST
-        Edge result[] = new Edge[V]; 
+        Edge result[] = new Edge[nodeCount]; 
        
         // An index variable, used for result[]
         int e = 0; 
        
         // An index variable, used for sorted edges
         int i = 0; 
-        for (i = 0; i < V; ++i)
+        for (i = 0; i < nodeCount; ++i)
             result[i] = new Edge();
  
         // Step 1:  Sort all the edges in non-decreasing
@@ -91,12 +99,12 @@ public class Kruskal {
         Arrays.sort(edge);
  
         // Allocate memory for creating V ssubsets
-        subset subsets[] = new subset[V];
-        for (i = 0; i < V; ++i)
+        subset subsets[] = new subset[nodeCount];
+        for (i = 0; i < nodeCount; ++i)
             subsets[i] = new subset();
  
         // Create V subsets with single elements
-        for (int v = 0; v < V; ++v) 
+        for (int v = 0; v < nodeCount; ++v) 
         {
             subsets[v].parent = v;
             subsets[v].rank = 0;
@@ -105,7 +113,7 @@ public class Kruskal {
         i = 0; // Index used to pick next edge
  
         // Number of edges to be taken is equal to V-1
-        while (e < V - 1) 
+        while (e < nodeCount - 1) 
         {
             // Step 2: Pick the smallest edge. And increment
             // the index for next iteration
