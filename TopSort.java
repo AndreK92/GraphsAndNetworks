@@ -3,6 +3,8 @@ import java.io.*;
 
 
 // Topologische Sortierung mit einer AdjaListe
+// Für einen Gerichteten Graphen G gibt es eine anordnung seiner Knoten, sodass
+// jede gerichtete Kante U -> V wobei U vor V angeordnet ist
 public class TopSort {
     //
     ArrayList<ArrayList<Integer>> adjaListe;
