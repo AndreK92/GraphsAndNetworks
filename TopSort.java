@@ -19,7 +19,6 @@ public class TopSort {
     // Rekursive Funktion, die von topSot() verwendet wird
     void topSortU(int v, boolean nodeVisited[], Stack<Integer> stack) 
     { 
-
         // Den aktuellen Knoten als überprüft markieren
         nodeVisited[v] = true; 
         // Aktueller Knoten
@@ -40,6 +39,7 @@ public class TopSort {
     // TopSort Funktion, die topSortU() benutzt
     void topSort() 
     { 
+        System.out.println("TOPSORT"); 
         Stack<Integer> stack = new Stack<Integer>(); 
   
         // Markiert alle Knoten als nicht überprüft
@@ -56,5 +56,6 @@ public class TopSort {
         // Ausgabe
         while (stack.empty() == false) 
             System.out.print(stack.pop() + " "); 
+        System.out.println(); 
     } 
 }

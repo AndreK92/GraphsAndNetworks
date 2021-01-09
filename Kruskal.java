@@ -18,14 +18,6 @@ public class Kruskal {
         this.edgeCount = kListe.Kanten.size();
     }
 
-    ArrayList<ArrayList<Integer>> yourList = this.kListe;
-    Collections.sort(yourList, new Comparator<ArrayList<Integer>>() {
-        @Override
-        public int compare(ArrayList<Integer> one, ArrayList<Integer> two) {
-            return one.get(1).compareTo(two.get(1));
-        }
-    });
-
     // A class to represent a graph edge
     class Edge implements Comparable<Edge> 
     {
@@ -89,26 +81,39 @@ public class Kruskal {
     // algorithm
     void KruskalMST()
     {
+        System.out.println("KRUSKAL"); 
+
         // Tnis will store the resultant MST
-        Edge result[] = new Edge[nodeCount]; 
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
        
         // An index variable, used for result[]
         int e = 0; 
        
         // An index variable, used for sorted edges
-        int i = 0; 
-        for (i = 0; i < nodeCount; ++i)
-            result[i] = new Edge();
+        // int i = 0; 
+        // for (i = 0; i < nodeCount; ++i)
+        //     result.add(new ArrayList<Integer>());
  
         // Step 1:  Sort all the edges in non-decreasing
         // order of their weight.  If we are not allowed to
         // change the given graph, we can create a copy of
         // array of edges
-        Arrays.sort(edge);
+        ArrayList<ArrayList<Integer>> kListSort = kListe;
+        Collections.sort(kListSort, new Comparator<ArrayList<Integer>>() {
+            @Override
+            public int compare(ArrayList<Integer> one, ArrayList<Integer> two) {
+                return one.get(1).compareTo(two.get(1));
+            }
+        });
+        for (ArrayList<Integer> arrayList : kListSort) {
+            System.out.print(arrayList.get(1) + " "); 
+        }
+        System.out.println(); 
+        //Arrays.sort(edge);
  
         // Allocate memory for creating V ssubsets
         subset subsets[] = new subset[nodeCount];
-        for (i = 0; i < nodeCount; ++i)
+        for (int i = 0; i < nodeCount; ++i)
             subsets[i] = new subset();
  
         // Create V subsets with single elements
@@ -118,24 +123,24 @@ public class Kruskal {
             subsets[v].rank = 0;
         }
  
-        i = 0; // Index used to pick next edge
+        int i = 0; // Index used to pick next edge
  
         // Number of edges to be taken is equal to V-1
         while (e < nodeCount - 1) 
         {
             // Step 2: Pick the smallest edge. And increment
             // the index for next iteration
-            Edge next_edge = new Edge();
-            next_edge = edge[i++];
+            ArrayList<Integer> next_edge = kListSort.get(i++);
  
-            int x = find(subsets, next_edge.src);
-            int y = find(subsets, next_edge.dest);
+            int x = find(subsets, next_edge.get(0));
+            int y = find(subsets, next_edge.get(2));
  
             // If including this edge does't cause cycle,
             // include it in result and increment the index
             // of result for next edge
             if (x != y) {
-                result[e++] = next_edge;
+                e++;
+                result.add(next_edge);
                 Union(subsets, x, y);
             }
             // Else discard the next_edge
@@ -148,10 +153,10 @@ public class Kruskal {
         int minimumCost = 0;
         for (i = 0; i < e; ++i)
         {
-            System.out.println(result[i].src + " -- "
-                               + result[i].dest
-                               + " == " + result[i].weight);
-            minimumCost += result[i].weight;
+            System.out.println(result.get(i).get(0) + " -- "
+                               + result.get(i).get(2)
+                               + " == " + result.get(i).get(1));
+            minimumCost += result.get(i).get(1);
         }
         System.out.println("Minimum Cost Spanning Tree "
                            + minimumCost);
