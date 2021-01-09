@@ -5,7 +5,7 @@ import java.util.Scanner; // Import the Scanner class to read text files
 
 public class parsing {
 
-    public graph readGraph;
+    public graph2 readGraph;
 
     // graphData --> Array of ArrayLists
     // graphData[x]         --> ROW - Node
@@ -92,11 +92,11 @@ public class parsing {
     // }
 
     // Read file file and return graph with Kanten
-    private static graph readFileGraph(String file)
+    private static graph2 readFileGraph(String file)
     {
         int nodeCount = 0;
         ArrayList<String>[] readData;
-        graph ret = null;
+        graph2 ret = null;
         //node newNode;
 
         try {
@@ -107,7 +107,7 @@ public class parsing {
             // Rows are NODES
             nodeCount = Integer.parseInt(myReader.nextLine());
 
-            ret = new graph(nodeCount);
+            ret = new graph2(nodeCount);
 
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
@@ -210,10 +210,14 @@ public class parsing {
     public static void main(String[] args) {
 
         // ReadFile to Kantenliste
-        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
+        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeightedKrusk.txt");
+
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/bellmannford.txt");
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/petersen.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/k3_3.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/k5.txt");
 
         testKantenliste.isDirected = true;
         testKantenliste.printKantenListe();
@@ -233,8 +237,12 @@ public class parsing {
         adjListe.printAdjListe();
         adjListe.writeDOT();
 
-        // Topsort
+        // Topsort mit der AdjaListe
         TopSort tSort = new TopSort(adjListe.adjaListe);
-        tSort.topologicalSort();
+        tSort.topSort();
+
+        // Kruskal mit der KListe
+        Kruskal kruskal = new Kruskal(testKantenliste);
+        kruskal.KruskalMST();
     }
 }

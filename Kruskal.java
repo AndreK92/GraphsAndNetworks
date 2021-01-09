@@ -112,12 +112,12 @@ public class Kruskal {
         //Arrays.sort(edge);
  
         // Allocate memory for creating V ssubsets
-        subset subsets[] = new subset[nodeCount];
-        for (int i = 0; i < nodeCount; ++i)
+        subset subsets[] = new subset[nodeCount+1];
+        for (int i = 1; i < nodeCount+1; ++i)
             subsets[i] = new subset();
  
         // Create V subsets with single elements
-        for (int v = 0; v < nodeCount; ++v) 
+        for (int v = 1; v < nodeCount+1; ++v) 
         {
             subsets[v].parent = v;
             subsets[v].rank = 0;
