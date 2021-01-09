@@ -211,13 +211,14 @@ public class parsing {
 
         // ReadFile to Kantenliste
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
-        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeightedKrusk.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
+        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeightedKrusk.txt");
 
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/bellmannford.txt");
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/petersen.txt");
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/k3_3.txt");
         //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/k5.txt");
+        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/ladder.txt");
 
         testKantenliste.isDirected = true;
         testKantenliste.printKantenListe();
@@ -244,5 +245,8 @@ public class parsing {
         // Kruskal mit der KListe
         Kruskal kruskal = new Kruskal(testKantenliste);
         kruskal.KruskalMST();
+
+        Dijkstra dijkstra = new Dijkstra(adjaMatrix); 
+        dijkstra.dijkstra(adjaMatrix.adjaMatrix, 1);
     }
 }

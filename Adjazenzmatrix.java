@@ -3,6 +3,7 @@ import java.io.*;
 
 public class Adjazenzmatrix {
     public int[][] adjaMatrix;
+    int nodeCount = 0;
 
     public ArrayList<Integer> edgeWeights;
     Boolean isWeighted = false;
@@ -11,6 +12,7 @@ public class Adjazenzmatrix {
 
     public Adjazenzmatrix(int nodeCount)
     {
+        this.nodeCount = nodeCount;
         this.edgeWeights = new ArrayList<>();
         this.adjaMatrix = new int[nodeCount+1][nodeCount+1];
         for (int i = 0; i < nodeCount-1; i++) {
