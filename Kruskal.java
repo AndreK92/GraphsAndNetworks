@@ -18,6 +18,14 @@ public class Kruskal {
         this.edgeCount = kListe.Kanten.size();
     }
 
+    ArrayList<ArrayList<Integer>> yourList = this.kListe;
+    Collections.sort(yourList, new Comparator<ArrayList<Integer>>() {
+        @Override
+        public int compare(ArrayList<Integer> one, ArrayList<Integer> two) {
+            return one.get(1).compareTo(two.get(1));
+        }
+    });
+
     // A class to represent a graph edge
     class Edge implements Comparable<Edge> 
     {
