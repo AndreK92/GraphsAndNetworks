@@ -38,7 +38,7 @@ public class parsing {
                 if(edge.size() > 1)
                 {
                     if (edge.size() == 3) {
-                        System.out.println("Weighted");
+                        //System.out.println("Weighted");
                         ret.isWeighted = true;
                     }
                     ret.addKante(edge);
@@ -55,17 +55,20 @@ public class parsing {
 
     public static void main(String[] args) {
 
+        String file = "";
+
         // ReadFile to Kantenliste
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/test.txt");
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeighted.txt");
-        KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/testWeightedKrusk.txt");
+        file = "./Beispielgraphen-20201120/test.txt";
+        //file = "./Beispielgraphen-20201120/testWeighted.txt";
+        //file = "./Beispielgraphen-20201120/testWeightedKrusk.txt";
 
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/bellmannford.txt");
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/petersen.txt");
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/k3_3.txt");
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/k5.txt");
-        //KantenListe testKantenliste = readFileKanteliste("./Beispielgraphen-20201120/ladder.txt");
+        //file = "./Beispielgraphen-20201120/bellmannford.txt";
+        //file = "./Beispielgraphen-20201120/petersen.txt";
+        //file = "./Beispielgraphen-20201120/k3_3.txt";
+        //file = "./Beispielgraphen-20201120/k5.txt";
+        //file = "./Beispielgraphen-20201120/ladder.txt";
 
+        KantenListe testKantenliste = readFileKanteliste(file);
         testKantenliste.isDirected = true;
         testKantenliste.printKantenListe();
         testKantenliste.writeDOT();
@@ -85,7 +88,7 @@ public class parsing {
         adjListe.writeDOT();
 
         // Topsort mit der AdjaListe
-        TopSort tSort = new TopSort(adjListe.adjaListe);
+        TopSort tSort = new TopSort(adjListe);
         tSort.topSort();
 
         // Kruskal mit der KListe

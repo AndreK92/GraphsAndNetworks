@@ -9,14 +9,21 @@ import Formen.*;
 // Für einen Gerichteten Graphen G gibt es eine anordnung seiner Knoten, sodass
 // jede gerichtete Kante U -> V wobei U vor V angeordnet ist
 public class TopSort {
-    //
+
     ArrayList<ArrayList<Integer>> adjaListe;
     int nodeCount = 0;
 
-    public TopSort(ArrayList<ArrayList<Integer>> Graph)
+    public TopSort(AdjListe adjListe)
     {
-        this.adjaListe = Graph;
-        this.nodeCount = Graph.size()+1;
+        if(adjListe.isDirected)
+        {
+            ArrayList<ArrayList<Integer>> Graph = adjListe.adjaListe;
+            this.adjaListe = Graph;
+            this.nodeCount = Graph.size()+1;
+        }
+        else{
+            System.out.println("ERROR: TopSort ist nur mit Gerichteten Graphen möglich!"); 
+        }
     }
 
     // Rekursive Funktion, die von topSot() verwendet wird
