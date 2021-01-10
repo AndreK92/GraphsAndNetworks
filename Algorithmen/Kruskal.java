@@ -10,12 +10,14 @@ import Formen.*;
 // 3. Repeat step#2 until there are (V-1) edges in the spanning tree.
 public class Kruskal {
 
+    KantenListe Graph;
     ArrayList<ArrayList<Integer>> kListe;
     int nodeCount = 0;
     int edgeCount = 0;
 
     public Kruskal(KantenListe kListe)
     {
+        this.Graph = kListe;
         this.kListe = kListe.Kanten;
         this.nodeCount = kListe.nodeCount;
         this.edgeCount = kListe.Kanten.size();
@@ -85,6 +87,14 @@ public class Kruskal {
     public void KruskalMST()
     {
         System.out.println("KRUSKAL"); 
+
+        // Check ob Graph ungerichtet und weighted
+        if(Graph.isDirected || !Graph.isWeighted)
+        {
+            System.out.println("ERROR: Kruskal ist nur mit ungerichteten gewichteten Graphen möglich!"); 
+            System.out.println();
+            return;
+        }
 
         // Tnis will store the resultant MST
         ArrayList<ArrayList<Integer>> result = new ArrayList<>();
