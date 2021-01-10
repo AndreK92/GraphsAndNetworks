@@ -58,8 +58,8 @@ public class parsing {
         String file = "";
 
         // ReadFile to Kantenliste
-        file = "./Beispielgraphen-20201120/test.txt";
-        //file = "./Beispielgraphen-20201120/testWeighted.txt";
+        //file = "./Beispielgraphen-20201120/test.txt";
+        file = "./Beispielgraphen-20201120/testWeighted.txt";
         //file = "./Beispielgraphen-20201120/testWeightedKrusk.txt";
 
         //file = "./Beispielgraphen-20201120/bellmannford.txt";
@@ -94,7 +94,7 @@ public class parsing {
 
         // Kruskal mit der KListe
         Kruskal kruskal = new Kruskal(testKantenliste);
-        kruskal.KruskalMST();
+        kruskal.KruskalAlg();
 
         Dijkstra dijkstra = new Dijkstra(adjaMatrix); 
         dijkstra.dijkstra(adjaMatrix.adjaMatrix, 1);
