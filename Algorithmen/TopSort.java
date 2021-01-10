@@ -21,7 +21,7 @@ public class TopSort {
         this.nodeCount = adjListe.adjaListe.size()+1;
     }
 
-    // Rekursive Funktion, die von topSot() verwendet wird
+    // Rekursive Funktion, die von topSort() verwendet wird
     void topSortU(int v, boolean nodeVisited[], Stack<Integer> stack) 
     { 
         // Den aktuellen Knoten als überprüft markieren
@@ -30,8 +30,10 @@ public class TopSort {
         int i; 
 
         // Rekursion für alle Knoten Adjazent zu aktuellem Knoten
+        // Knoten wird nur in den Stack gepusht, wenn alle adjazenten Knoten schon im Stack sind
         Iterator<Integer> it = adjaListe.get(v-1).iterator(); 
         while (it.hasNext()) { 
+            // Wählt adjazenten Knoten und führt Rekursion aus, wenn noch nicht überprüft
             i = it.next(); 
             if (!nodeVisited[i]) 
                 topSortU(i, nodeVisited, stack); 
@@ -61,7 +63,7 @@ public class TopSort {
             visited[i] = false; 
   
         // Starte topSort über topSortU
-         // Durchläuft alle Knoten nacheinander 1,2,3,4,5
+        // Durchläuft alle Knoten nacheinander 1,2,3,4,5 ..
         for (int i = 1; i < nodeCount; i++) 
             if (visited[i] == false) 
                 topSortU(i, visited, stack); 
