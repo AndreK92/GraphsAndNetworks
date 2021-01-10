@@ -1,6 +1,9 @@
+
+package Algorithmen; 
 import java.util.*;
 import java.io.*;
 
+import Formen.*;
 
 // Topologische Sortierung mit einer AdjaListe
 // Für einen Gerichteten Graphen G gibt es eine anordnung seiner Knoten, sodass
@@ -37,7 +40,7 @@ public class TopSort {
     } 
   
     // TopSort Funktion, die topSortU() benutzt
-    void topSort() 
+    public void topSort() 
     { 
         System.out.println("TOPSORT"); 
         Stack<Integer> stack = new Stack<Integer>(); 

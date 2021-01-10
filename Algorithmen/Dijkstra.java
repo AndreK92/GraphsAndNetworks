@@ -1,10 +1,13 @@
 // A Java program for Dijkstra's single source shortest path algorithm. 
 // The program is for adjacency matrix representation of the graph 
+package Algorithmen; 
 import java.util.*; 
 import java.lang.*; 
 import java.io.*; 
-  
-class Dijkstra { 
+
+import Formen.*;
+
+public class Dijkstra { 
 
     public int[][] adjaMatrix;
     public ArrayList<Integer> edgeWeights;
@@ -44,7 +47,7 @@ class Dijkstra {
     // Function that implements Dijkstra's single source shortest path 
     // algorithm for a graph represented using adjacency matrix 
     // representation 
-    void dijkstra(int graph[][], int src) 
+    public void dijkstra(int graph[][], int src) 
     { 
         int dist[] = new int[nodeCount]; // The output array. dist[i] will hold 
         // the shortest distance from src to i 

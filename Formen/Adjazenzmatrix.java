@@ -1,36 +1,57 @@
+package Formen;
 import java.util.*;
 import java.io.*;
 
-public class AdjListe {
-    public ArrayList<ArrayList<Integer>> adjaListe;
+public class Adjazenzmatrix {
+    public int[][] adjaMatrix;
+    public int nodeCount = 0;
 
     public ArrayList<Integer> edgeWeights;
-    Boolean isWeighted = false;
+    public Boolean isWeighted = false;
 
-    Boolean isDirected = false;
+    public Boolean isDirected = false;
 
-    public AdjListe(int nodeCount)
+    public Adjazenzmatrix(int nodeCount)
     {
-        this.adjaListe = new ArrayList<ArrayList<Integer>>();
+        this.nodeCount = nodeCount;
+        this.edgeWeights = new ArrayList<>();
+        this.adjaMatrix = new int[nodeCount+1][nodeCount+1];
+        for (int i = 0; i < nodeCount-1; i++) {
+            for (int j = 0; j < nodeCount-1; j++) {
+                this.adjaMatrix[i][j] = 0;
+            }
+        }
     }
 
-    public void printAdjListe() 
+    public int[][] getAdjazenzmatrix() {
+        return this.adjaMatrix;
+    }
+
+    public boolean isWeighted()
     {
-        System.out.println("PRINT: AdjaListe");
-        for (int i = 0; i < adjaListe.size(); i++) {
-            ArrayList<Integer> buf = adjaListe.get(i);
-            for (int j = 0; j < buf.size(); j++) {
-                System.out.print(buf.get(j) + " ");
+        return isWeighted;
+    }
+
+    public void setWeight(boolean weight)
+    {
+        this.isWeighted = weight;
+    }
+
+    public void printAdjMatrix() {
+        System.out.println("PRINT: AdjaMatrix");
+        for (int i = 1; i < adjaMatrix.length; i++) {
+            for (int j = 1; j < adjaMatrix.length; j++) {
+                System.out.print(adjaMatrix[i][j] + " ");
             }
             System.out.println();
         }
-        System.out.println();
+        System.out.print("\n");
     }
 
     public void writeDOT()
     {
         try {
-            FileWriter myWriter = new FileWriter("./GraphVizData/DOT-AdjaList.dot");
+            FileWriter myWriter = new FileWriter("./GraphVizData/DOT-AdjaMatrix.dot");
 
             String dir = "";
             if (isDirected) {
@@ -42,44 +63,19 @@ public class AdjListe {
                 dir = " -- ";
             }
 
-            Iterator<Integer> iter = null;
-            // ArrayList um doppelte Einträge zu vermeiden
-            ArrayList<String> test = new ArrayList();
-            for (int i = 0; i < adjaListe.size(); i++) {
-                ArrayList<Integer> buf = adjaListe.get(i);
-                for (int j = 0; j < buf.size(); j++) {
-                    String toWrite      = "";
-                    String invToWrite   = "";
-                    
-                    // Check gewichtet
-                    if (isWeighted) {
-                        iter = edgeWeights.iterator(); 
-                        int weight = edgeWeights.get(i);
-                        toWrite = "    "+(i+1)+dir+buf.get(j)+"";
-                        invToWrite = "    "+buf.get(j)+dir+(i+1)+"";
-
-                        // Doppelte Einträge zu vermeiden
-                        if (!test.contains(invToWrite)) {
-                            test.add(toWrite);
+            Iterator<Integer> iter = edgeWeights.iterator(); 
+            // j = i  weil matrix sich quasi spiegelt und so doppelte einträge vermieden werden
+            for (int i = 1; i < adjaMatrix.length; i++) {
+                for (int j = i; j < adjaMatrix.length; j++) {
+                    if (adjaMatrix[i][j] == 1) {
+                        if (isWeighted) {
+                            myWriter.write("    "+i+dir+j+"[label=\""+iter.next()+"\"];\n");
                         }
-                    }
-                    else{
-                        toWrite = "    "+(i+1)+dir+buf.get(j)+";\n";
-                        invToWrite = "    "+buf.get(j)+dir+(i+1)+";\n";
-
-                        // Doppelte Einträge zu vermeiden
-                        if (!test.contains(invToWrite)) {
-                            test.add(toWrite);
+                        else{
+                            myWriter.write("    "+i+dir+j+";\n");
                         }
                     }
                 }
-            }
-
-            for (String string : test) {
-                if (isWeighted) {
-                    string += "[label=\""+iter.next()+"\"];\n";
-                }
-                myWriter.write(string);
             }
 
             myWriter.write("}");
@@ -92,11 +88,11 @@ public class AdjListe {
         }
     }
 
-    public void convKantenlisteToAdjazenzListe(KantenListe kListe)
+    public void convKantenlisteToAdjazenzmatrix(KantenListe kListe)
     {
         if (kListe.isDirected) {
             isDirected = true;
-            convKlisteToAdjaListeDir(kListe);
+            convKListeToAdjazMatrix(kListe);
             return;
         }
 
@@ -109,13 +105,13 @@ public class AdjListe {
             isWeighted = true;
 
             for (int i = 1; i <= nodeCount; i++) {
-                ArrayList<Integer> buf = new ArrayList<>();
                 for (int j = 1; j <= nodeCount; j++) {
+    
                     // Wenn Knoten gleich, prüfe auf Anzahl, wenn größer 1, dann 1 in der Matrix
                     if (i==j) {
                         for (ArrayList<Integer> js : kListe.Kanten) {
                             if (js.get(0) == i && js.get(2) == i) {
-                                buf.add(j);
+                                adjaMatrix[i][j] = 1;
                             }
                         }
                         continue;
@@ -125,48 +121,44 @@ public class AdjListe {
                     for (ArrayList<Integer> js : kListe.Kanten) {
                         if ((js.get(0) == i && js.get(2) == j) ||
                             (js.get(0) == j && js.get(2) == i)) {
-                            buf.add(j);
+                            adjaMatrix[i][j] = 1;
                         }
                     }
                 }
-                adjaListe.add(buf);
             }
+            System.out.println();
         }
-
-        else
-        {
+        else{
             for (int i = 1; i <= nodeCount; i++) {
-                ArrayList<Integer> buf = new ArrayList<>();
                 for (int j = 1; j <= nodeCount; j++) {
-    
+
+                    // Wenn Knoten gleich, prüfe auf Anzahl, wenn größer 1, dann 1 in der Matrix
                     if (i==j) {
                         for (ArrayList<Integer> js : kListe.Kanten) {
                             if (Collections.frequency(js, i) > 1) {
-                                buf.add(j);
+                                adjaMatrix[i][j] = 1;
                             }
                         }
                         continue;
                     }
-    
+
+                    // Prüfe ob ein entsprechendes paar vorhanden ist, dann 1 in der Matrix
                     for (ArrayList<Integer> js : kListe.Kanten) {
                         if (js.contains(i) && js.contains(j)) {
-                            //System.out.println("CHECK ArrayList: "+i+" Contains: "+i+", "+j+"\n");
-                            buf.add(j);
+                            adjaMatrix[i][j] = 1;
                         }
                     }
                 }
-                adjaListe.add(buf);
             }
+            System.out.println();
         }
     }
 
-    /*Konvertiert DIREKTEN Graph Kantenliste in AdjaListe
-    js.get(0) == i && js.get(1) == j ist der unterschied zur anderen Funktion, 
-    so werden nur ausgehende Edges in die Liste aufgenommen
-    */
-    public void convKlisteToAdjaListeDir(KantenListe kListe)
+    // Konvertiert DIREKTEN Graph Kantenliste in AdjaMatrix
+    // j = i ist der unterschied zur anderen FUnktion, Matrix wird quasi in der hälfte geteilt
+    public int[][] convKListeToAdjazMatrix(KantenListe kListe)
     {
-        System.out.println("Covert to DIRECTED List");
+        System.out.println("Covert to DIRECTED Matrix");
         int nodeCount = kListe.nodeCount;
 
         // Check ob Gewichteter Graph
@@ -176,13 +168,38 @@ public class AdjListe {
             isWeighted = true;
 
             for (int i = 1; i <= nodeCount; i++) {
-                ArrayList<Integer> buf = new ArrayList<>();
-                for (int j = 1; j <= nodeCount; j++) {
+                for (int j = i; j <= nodeCount; j++) {
+    
                     // Wenn Knoten gleich, prüfe auf Anzahl, wenn größer 1, dann 1 in der Matrix
                     if (i==j) {
                         for (ArrayList<Integer> js : kListe.Kanten) {
                             if (js.get(0) == i && js.get(2) == i) {
-                                buf.add(j);
+                                adjaMatrix[i][j] = 1;
+                            }
+                        }
+                        continue;
+                    }
+    
+                    // Prüfe ob ein entsprechendes paar vorhanden ist, dann 1 in der Matrix
+                    for (ArrayList<Integer> js : kListe.Kanten) {
+                        if ((js.get(0) == i && js.get(2) == j) ||
+                            (js.get(0) == j && js.get(2) == i)) {
+                            adjaMatrix[i][j] = 1;
+                        }
+                    }
+                }
+            }
+            System.out.println();
+        }
+        else{
+            for (int i = 1; i <= nodeCount; i++) {
+                for (int j = i; j <= nodeCount; j++) {
+
+                    // Wenn Knoten gleich, prüfe auf Anzahl, wenn größer 1, dann 1 in der Matrix
+                    if (i==j) {
+                        for (ArrayList<Integer> js : kListe.Kanten) {
+                            if (Collections.frequency(js, i) > 1) {
+                                adjaMatrix[i][j] = 1;
                             }
                         }
                         continue;
@@ -190,38 +207,16 @@ public class AdjListe {
 
                     // Prüfe ob ein entsprechendes paar vorhanden ist, dann 1 in der Matrix
                     for (ArrayList<Integer> js : kListe.Kanten) {
-                        if ((js.get(0) == i && js.get(2) == j)) {
-                            buf.add(j);
+                        if (js.contains(i) && js.contains(j)) {
+                            adjaMatrix[i][j] = 1;
                         }
                     }
                 }
-                adjaListe.add(buf);
             }
+            System.out.println();
         }
 
-        else
-        {
-            for (int i = 1; i <= nodeCount; i++) {
-                ArrayList<Integer> buf = new ArrayList<>();
-                for (int j = 1; j <= nodeCount; j++) {
-    
-                    if (i==j) {
-                        for (ArrayList<Integer> js : kListe.Kanten) {
-                            if (Collections.frequency(js, i) > 1) {
-                                buf.add(j);
-                            }
-                        }
-                        continue;
-                    }
-    
-                    for (ArrayList<Integer> js : kListe.Kanten) {
-                        if (js.get(0) == i && js.get(1) == j) {
-                            buf.add(j);
-                        }
-                    }
-                }
-                adjaListe.add(buf);
-            }
-        }
+
+        return adjaMatrix;
     }
 }

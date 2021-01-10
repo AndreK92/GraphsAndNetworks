@@ -1,14 +1,15 @@
+package Formen;
 import java.util.ArrayList;
 import java.io.*;
 
 public class KantenListe {
-    ArrayList<ArrayList<Integer>> Kanten;
-    int nodeCount = 0;
+    public ArrayList<ArrayList<Integer>> Kanten;
+    public int nodeCount = 0;
 
     public ArrayList<Integer> edgeWeights;
-    Boolean isWeighted = false;
+    public Boolean isWeighted = false;
 
-    Boolean isDirected = false;
+    public Boolean isDirected = false;
 
     public KantenListe(int nC)
     {
