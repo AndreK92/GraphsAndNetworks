@@ -69,7 +69,8 @@ public class parsing {
         //file = "./Beispielgraphen-20201120/ladder.txt";
 
         KantenListe testKantenliste = readFileKanteliste(file);
-        testKantenliste.isDirected = true;
+        //testKantenliste.isDirected = true;
+
         testKantenliste.printKantenListe();
         testKantenliste.writeDOT();
         

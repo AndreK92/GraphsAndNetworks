@@ -10,20 +10,15 @@ import Formen.*;
 // jede gerichtete Kante U -> V wobei U vor V angeordnet ist
 public class TopSort {
 
+    AdjListe Graph;
     ArrayList<ArrayList<Integer>> adjaListe;
     int nodeCount = 0;
 
     public TopSort(AdjListe adjListe)
     {
-        if(adjListe.isDirected)
-        {
-            ArrayList<ArrayList<Integer>> Graph = adjListe.adjaListe;
-            this.adjaListe = Graph;
-            this.nodeCount = Graph.size()+1;
-        }
-        else{
-            System.out.println("ERROR: TopSort ist nur mit Gerichteten Graphen möglich!"); 
-        }
+        this.Graph = adjListe;
+        this.adjaListe = adjListe.adjaListe;
+        this.nodeCount = adjListe.adjaListe.size()+1;
     }
 
     // Rekursive Funktion, die von topSot() verwendet wird
@@ -49,9 +44,17 @@ public class TopSort {
     // TopSort Funktion, die topSortU() benutzt
     public void topSort() 
     { 
-        System.out.println("TOPSORT"); 
+        System.out.println("TOPSORT");
         Stack<Integer> stack = new Stack<Integer>(); 
   
+        // Check ob Graph Gerichtet ist
+        if(!Graph.isDirected)
+        {
+            System.out.println("ERROR: TopSort ist nur mit Gerichteten Graphen möglich!"); 
+            System.out.println();
+            return;
+        }
+
         // Markiert alle Knoten als nicht überprüft
         boolean visited[] = new boolean[nodeCount]; 
         for (int i = 0; i < nodeCount; i++) 
@@ -66,6 +69,6 @@ public class TopSort {
         // Ausgabe
         while (stack.empty() == false) 
             System.out.print(stack.pop() + " "); 
-        System.out.println(); 
+        System.out.println();
     } 
 }
