@@ -9,12 +9,14 @@ import Formen.*;
 
 public class Dijkstra { 
 
+    Adjazenzmatrix Graph;
     public int[][] adjaMatrix;
     public ArrayList<Integer> edgeWeights;
     public int nodeCount = 0;
 
     public Dijkstra(Adjazenzmatrix adjaMatrix)
     {
+        this.Graph = adjaMatrix;
         this.nodeCount = adjaMatrix.nodeCount;
         this.adjaMatrix = adjaMatrix.adjaMatrix;
         this.edgeWeights = adjaMatrix.edgeWeights;
@@ -49,6 +51,16 @@ public class Dijkstra {
     // representation 
     public void dijkstra(int graph[][], int src) 
     { 
+        System.out.println("DIJKSTRA"); 
+
+        // Check ob Graph weighted
+        if(!Graph.isWeighted)
+        {
+            System.out.println("ERROR: Dijkstra ist nur mit gewichteten Graphen möglich!"); 
+            System.out.println();
+            return;
+        }
+
         int dist[] = new int[nodeCount]; // The output array. dist[i] will hold 
         // the shortest distance from src to i 
   
