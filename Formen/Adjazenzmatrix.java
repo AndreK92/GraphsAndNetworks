@@ -111,7 +111,8 @@ public class Adjazenzmatrix {
                     if (i==j) {
                         for (ArrayList<Integer> js : kListe.Kanten) {
                             if (js.get(0) == i && js.get(2) == i) {
-                                adjaMatrix[i][j] = 1;
+                                //adjaMatrix[i][j] = 1;
+                                adjaMatrix[i][j] = js.get(1);
                             }
                         }
                         continue;
@@ -121,7 +122,8 @@ public class Adjazenzmatrix {
                     for (ArrayList<Integer> js : kListe.Kanten) {
                         if ((js.get(0) == i && js.get(2) == j) ||
                             (js.get(0) == j && js.get(2) == i)) {
-                            adjaMatrix[i][j] = 1;
+                            //adjaMatrix[i][j] = 1;
+                            adjaMatrix[i][j] = js.get(1);
                         }
                     }
                 }

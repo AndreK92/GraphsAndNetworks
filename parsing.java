@@ -61,7 +61,8 @@ public class parsing {
         //file = "./Beispielgraphen-20201120/test.txt";
         //file = "./Beispielgraphen-20201120/testWeighted.txt";
         //file = "./Beispielgraphen-20201120/testWeightedKrusk.txt";
-        file = "./Beispielgraphen-20201120/testKruskal.txt";
+        //file = "./Beispielgraphen-20201120/testKruskal.txt";
+        file = "./Beispielgraphen-20201120/testDijkstra.txt";
 
         //file = "./Beispielgraphen-20201120/bellmannford.txt";
         //file = "./Beispielgraphen-20201120/petersen.txt";
