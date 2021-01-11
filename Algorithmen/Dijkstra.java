@@ -1,5 +1,3 @@
-// A Java program for Dijkstra's single source shortest path algorithm. 
-// The program is for adjacency matrix representation of the graph 
 package Algorithmen; 
 import java.util.*; 
 import java.lang.*; 
@@ -88,9 +86,6 @@ public class Dijkstra {
             // Aktualisiere Distanz der Adjaz Knoten V von U
             for (int v = 0; v <= nodeCount; v++) 
             {
-                // Update dist[v] only if is not in sptSet, there is an 
-                // edge from u to v, and total weight of path from src to 
-                // v through u is smaller than current value of dist[v] 
                 // Aktualisert nur wenn:
                 if (
                 !visited[v] &&                          // Adjaz Knoten V ist nicht in sptSet
@@ -103,17 +98,14 @@ public class Dijkstra {
             }
         } 
   
-        // print the constructed distance array 
-        printSolution(shortDist,src); 
-    } 
-
-    // A utility function to print the constructed distance array 
-    void printSolution(int dist[],int src) 
-    { 
         System.out.println("Knoten \t\t Distanz zu Knoten: "+src); 
         for (int i = 1; i <= nodeCount; i++)
         {
-            System.out.println(i + " \t\t " + dist[i]); 
+            System.out.println(i + " \t\t " + shortDist[i]); 
+            if (i==10) {
+                System.out.println("Stoppe PRINT zu viele Knoten fürs Terminal ..."); 
+                break;
+            }
         }
     } 
 } 
