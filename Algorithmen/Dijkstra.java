@@ -5,13 +5,13 @@ import java.io.*;
 
 import Formen.*;
 
-// Schritt 1: Erstelle ein sptSet, das alle Knoten enthält, die im SPT (Shortest Path Tree) sind. Also alle Knoten deren minimale Kosten bereits berechnet wurden.
-// Schritt 2: Alle Knoten werden mit den Kosten Integer.MAX_VALUE initiert. Der Source Knoten bekommt die Kosten 0, wird also als erstes ausgewählt
+// Schritt 1: Erstelle ein sptSet, das alle Knoten enthält, die im SPT (Shortest Path Tree) sind. Also alle Knoten deren minimale Distanz bereits berechnet wurden.
+// Schritt 2: Alle Knoten werden mit den Distanz Integer.MAX_VALUE initiert. Der Source Knoten bekommt die Distanz 0, wird also als erstes ausgewählt
 // Schritt 3: Solange das sptSet noch nicht alle Knoten enthält
-//      a) Wähle einen Knoten U der nicht im sptSet ist, und die minimalen Kosten hat
+//      a) Wähle einen Knoten U der nicht im sptSet ist, und die minimalen Distanz hat
 //      b) Füge diesen Knoten U dem sptSet hinzu
-//      c) Aktualisiere die Kosten aller adjazenten Knoten V um die des Knotens U
-//         Für jeden Adjaz Knoten V, wenn Summe der Kosten von U und Gewichtung der Kante U - V kleiner als Kosten von V --> aktualisiere Kosten von V
+//      c) Aktualisiere die Distanz aller adjazenten Knoten V um die des Knotens U
+//         Für jeden Adjaz Knoten V, wenn Summe der Distanz von U und Gewichtung der Kante U - V kleiner als Distanz von V --> aktualisiere Distanz von V
 public class Dijkstra { 
 
     Adjazenzmatrix Graph;
@@ -25,7 +25,7 @@ public class Dijkstra {
         this.adjaMatrix = adjaMatrix.adjaMatrix;
     }
 
-    // Findet den Knoten mit dem kleinsten Kosten
+    // Findet den Knoten mit dem kleinster Distanz
     // Benutzt dafür Knoten die noch nicht im sptSet sind
     int minDistance(int dist[], Boolean visited[]) 
     { 
@@ -34,7 +34,7 @@ public class Dijkstra {
         int min_index = -1; 
   
         // Durchläuft alle Knoten
-        // Setzt min / index auf Knoten mit kleinsten Kosten
+        // Setzt min / index auf Knoten mit kleinster Distanz
         for (int v = 0; v < nodeCount; v++) 
             if (dist[v]     <= min && 
                 visited[v]   == false) { 
@@ -77,7 +77,7 @@ public class Dijkstra {
         // Durchlaufe alle Knoten und finde kürzte Distanz für all Knoten
         for (int count = 0; count < nodeCount; count++) { 
 
-            // Wähle den Knoten U mit der kleinsten Distanz zu Source
+            // Wähle den Knoten U mit der kleinster Distanz zu Source
             int u = minDistance(shortDist, visited); 
   
             // Markiert Knoten U als bearbeitet
