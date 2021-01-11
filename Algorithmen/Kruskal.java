@@ -24,13 +24,8 @@ public class Kruskal {
         this.edgeCount = kListe.Kanten.size();
     }
 
-    // Subset für union find
-    class subset 
-    {
-        int parent, rank;
-    };
-
-    // A utility function to find the subset of an element i
+    // Finde die Wurzel des Knotens.
+    // Durchsucht Rekursiv die subsets, wenn gefunden return
     int find(int parent[], int i)
     {
         if (parent[i] == -1)
@@ -38,7 +33,7 @@ public class Kruskal {
         return find(parent, parent[i]);
     }
  
-    // A utility function to do union of two subsets
+    // Vereinigt zwei subsets deren Wurzeln gleich sind
     void Union(int parent[], int x, int y)
     {
         int xset = find(parent, x);
@@ -77,25 +72,25 @@ public class Kruskal {
         }
         System.out.println(); 
  
-        // Allocate memory for creating V subsets
+        // Subsets
         int parent[] = new int[nodeCount+1];
  
-        // Initialize all subsets as single element sets
-        for (int i=0; i < nodeCount+1; ++i)
+        // Setze alle subsets auf -1
+        for (int i = 0; i < nodeCount+1; ++i)
             parent[i]=-1;
 
-        // Anzahl der Kanten -> KnotenAnzahl -1
-        for (int i = 0; i < nodeCount - 1; i++) {
+        // Durchläuft alle Kanten des Graphen
+        for (int i = 0; i < edgeCount; i++) {
             // Schritt 2: Wähle nächst kleine Kante
             ArrayList<Integer> next_edge = kListSort.get(i);
  
             // X: Knoten 1, Y: Knoten 2
-            // Check nach Zyklus
+            // Suche nach Wurzeln der beiden Knoten
             int x = find(parent, next_edge.get(0));
             int y = find(parent, next_edge.get(2));
  
             // Wenn diese Kante mit dem aktuellen MST keinen Zyklus erzeugt
-            // Füge sie dem result hinzu
+            // Füge sie dem result hinzu, wenn beide Knoten nicht die gleiche Wurzel haben
             if (x != y) {
                 result.add(next_edge);
                 Union(parent, x, y);
@@ -103,20 +98,16 @@ public class Kruskal {
             // Else discard the next_edge
         }
  
-        // print the contents of result[] to display
-        // the built MST
-        System.out.println("Following are the edges in "
-                           + "the constructed MST");
-        int minimumCost = 0;
+        System.out.println("Kanten des MST");
+        int minCost = 0;
         for (int i = 0; i < result.size(); ++i)
         {
             System.out.println(result.get(i).get(0) + " -- "
                                + result.get(i).get(2)
                                + " == " + result.get(i).get(1));
-            minimumCost += result.get(i).get(1);
+            minCost += result.get(i).get(1);
         }
-        System.out.println("Minimum Cost Spanning Tree "
-                           + minimumCost);
+        System.out.println("Minimale Kosten "+ minCost);
     }
 
 
