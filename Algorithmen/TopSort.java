@@ -69,8 +69,17 @@ public class TopSort {
                 topSortU(i, visited, stack); 
   
         // Ausgabe
+        int i = 0;
         while (stack.empty() == false) 
+        {
+            if (i > 50) {
+                System.out.println("Stoppe PRINT zu viele Knoten fürs Terminal ..."); 
+                break;
+            }
             System.out.print(stack.pop() + " "); 
+            i++;
+        }
+ 
         System.out.println();
     } 
 }

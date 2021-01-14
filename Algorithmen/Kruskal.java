@@ -66,9 +66,15 @@ public class Kruskal {
                 return one.get(1).compareTo(two.get(1));
             }
         });
-        System.out.println("Sortierte Kanten:"); 
+        System.out.println("Sortierte Kanten:");
+        int count = 0;
         for (ArrayList<Integer> arrayList : kListSort) {
+            if (count > 50) {
+                System.out.println("Stoppe PRINT zu viele Knoten fürs Terminal ..."); 
+                break;
+            }
             System.out.print(arrayList.get(1) + " "); 
+            count++;
         }
         System.out.println(); 
  
@@ -95,13 +101,18 @@ public class Kruskal {
                 result.add(next_edge);
                 Union(parent, x, y);
             }
-            // Else discard the next_edge
+            // Verwerfe Kante
         }
  
         System.out.println("Kanten des MST");
         int minCost = 0;
         for (int i = 0; i < result.size(); ++i)
         {
+            if (i > 50) {
+                System.out.println("Stoppe PRINT zu viele Knoten fürs Terminal ..."); 
+                break;
+            }
+
             System.out.println(result.get(i).get(0) + " -- "
                                + result.get(i).get(2)
                                + " == " + result.get(i).get(1));
@@ -109,6 +120,4 @@ public class Kruskal {
         }
         System.out.println("Minimale Kosten "+ minCost);
     }
-
-
 }
